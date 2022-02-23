@@ -12,13 +12,25 @@ const App = () => {
       { id: Math.random().toString(), value: goalTitle },
     ]);
   };
+
+  const removeGoal = (goalId) => {
+    setGoals((currentGoals) => {
+      return currentGoals.filter((goal) => goal.id !== goalId);
+    });
+  };
   return (
     <View style={styles.screen}>
       <GoalInput onAddGoal={addedGoals} />
       <FlatList
         keyExtractor={(item, index) => item.id}
         data={goals}
-        renderItem={(itemData) => <GoalItem title={itemData.item.value} />}
+        renderItem={(itemData) => (
+          <GoalItem
+            title={itemData.item.value}
+            id={itemData.item.id}
+            onDelete={removeGoal}
+          />
+        )}
       />
     </View>
   );
