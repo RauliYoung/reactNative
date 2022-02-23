@@ -5,13 +5,17 @@ import {
   View,
   FlatList,
   ImageBackground,
+  Text,
 } from "react-native";
 import GoalItem from "./Components/GoalItem";
 import GoalInput from "./Components/GoalInput";
+import DeletedItem from "./Components/DeletedItem";
 
 const App = () => {
   const [goals, setGoals] = useState([]);
+  const [deletedGoals, setDeletedGoals] = useState([]);
   const [isAddMode, setAddMode] = useState(false);
+  const [isDeletedMode, setDeletedMode] = useState(false);
 
   const addedGoals = (goalTitle) => {
     setGoals((currentGoals) => [
@@ -21,14 +25,22 @@ const App = () => {
     setAddMode(false);
   };
 
-  const removeGoal = (goalId) => {
+  const removeGoal = (props) => {
+    setDeletedGoals((currentGoals) => [
+      ...currentGoals,
+      { id: props.id, value: props.title },
+    ]);
     setGoals((currentGoals) => {
-      return currentGoals.filter((goal) => goal.id !== goalId);
+      return currentGoals.filter((goal) => goal.id !== props.id);
     });
   };
 
   const cancelGoalHandler = () => {
     setAddMode(false);
+  };
+  //to exit the deleted items modal.
+  const exitDeletedItems = () => {
+    setDeletedMode(false);
   };
 
   return (
@@ -37,11 +49,19 @@ const App = () => {
       source={require("./assets/charCoal.jpg")}
     >
       <View style={styles.screen}>
-        <Button
-          title="Add new goal"
-          onPress={() => setAddMode(true)}
-          color="#00000000"
-        />
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Add new goal"
+            onPress={() => setAddMode(true)}
+            color="#00000000"
+          />
+          <Button
+            title="Show deleted"
+            onPress={() => setDeletedMode(true)}
+            color="#00000000"
+          />
+        </View>
+        <DeletedItem visible={isDeletedMode} onExit={exitDeletedItems} />
         <GoalInput
           visible={isAddMode}
           onAddGoal={addedGoals}
@@ -69,6 +89,11 @@ const styles = StyleSheet.create({
   },
   screen: {
     padding: 50,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
   },
 });
 
