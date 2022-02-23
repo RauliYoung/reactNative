@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { StyleSheet, Button, View, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Button,
+  View,
+  FlatList,
+  ImageBackground,
+} from "react-native";
 import GoalItem from "./Components/GoalItem";
 import GoalInput from "./Components/GoalInput";
 
@@ -26,29 +32,41 @@ const App = () => {
   };
 
   return (
-    <View style={styles.screen}>
-      <Button title="Add new goal" onPress={() => setAddMode(true)} />
-      <GoalInput
-        visible={isAddMode}
-        onAddGoal={addedGoals}
-        onCancel={cancelGoalHandler}
-      />
-      <FlatList
-        keyExtractor={(item, index) => item.id}
-        data={goals}
-        renderItem={(itemData) => (
-          <GoalItem
-            title={itemData.item.value}
-            id={itemData.item.id}
-            onDelete={removeGoal}
-          />
-        )}
-      />
-    </View>
+    <ImageBackground
+      style={styles.image}
+      source={require("./assets/charCoal.jpg")}
+    >
+      <View style={styles.screen}>
+        <Button
+          title="Add new goal"
+          onPress={() => setAddMode(true)}
+          color="#00000000"
+        />
+        <GoalInput
+          visible={isAddMode}
+          onAddGoal={addedGoals}
+          onCancel={cancelGoalHandler}
+        />
+        <FlatList
+          keyExtractor={(item, index) => item.id}
+          data={goals}
+          renderItem={(itemData) => (
+            <GoalItem
+              title={itemData.item.value}
+              id={itemData.item.id}
+              onDelete={removeGoal}
+            />
+          )}
+        />
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+  },
   screen: {
     padding: 50,
   },
