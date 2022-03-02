@@ -5,7 +5,6 @@ import {
   View,
   FlatList,
   ImageBackground,
-  Text,
 } from "react-native";
 import GoalItem from "./Components/GoalItem";
 import GoalInput from "./Components/GoalInput";
@@ -16,6 +15,7 @@ const App = () => {
   const [deletedGoals, setDeletedGoals] = useState([]);
   const [isAddMode, setAddMode] = useState(false);
   const [isDeletedMode, setDeletedMode] = useState(false);
+  console.log(goals);
 
   const addedGoals = (goalTitle) => {
     setGoals((currentGoals) => [
@@ -53,15 +53,19 @@ const App = () => {
           <Button
             title="Add new goal"
             onPress={() => setAddMode(true)}
-            color="#00000000"
+            color="#FFFAFA"
           />
           <Button
             title="Show deleted"
             onPress={() => setDeletedMode(true)}
-            color="#00000000"
+            color="#FFFAFA"
           />
         </View>
-        <DeletedItem visible={isDeletedMode} onExit={exitDeletedItems} />
+        <DeletedItem
+          visible={isDeletedMode}
+          onExit={exitDeletedItems}
+          deleted={deletedGoals}
+        />
         <GoalInput
           visible={isAddMode}
           onAddGoal={addedGoals}
@@ -86,14 +90,18 @@ const App = () => {
 const styles = StyleSheet.create({
   image: {
     flex: 1,
+    resizeMode: "cover",
   },
   screen: {
     padding: 50,
+    width: null,
+    height: null,
+    alignItems: "center",
   },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "100%",
+    width: "80%",
   },
 });
 
