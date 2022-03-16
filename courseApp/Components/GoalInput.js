@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Modal,
   ImageBackground,
+  SafeAreaView,
 } from "react-native";
 
 const GoalInput = (props) => {
@@ -36,14 +37,10 @@ const GoalInput = (props) => {
           />
           <View style={styles.buttonContainer}>
             <View style={styles.button}>
-              <Button
-                title="Cancel"
-                color="#00000000"
-                onPress={props.onCancel}
-              />
+              <Button title="Cancel" onPress={props.onCancel} color="#FFFAFA" />
             </View>
             <View style={styles.button}>
-              <Button title="Add" onPress={addGoalHandler} color="#00000000" />
+              <Button title="Add" onPress={addGoalHandler} color="#FFFAFA" />
             </View>
           </View>
         </View>

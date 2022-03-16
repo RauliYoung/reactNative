@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 const GoalItem = (props) => {
+  console.log("this was logged in goalitem, as deleted", props);
   return (
     <TouchableOpacity onPress={props.onDelete.bind(this, props)}>
       <View style={styles.listItem}>
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
   listItem: {
     padding: 10,
     marginVertical: 10,
-    backgroundColor: "#00000000",
+    backgroundColor: "black",
     borderColor: "white",
     borderWidth: 1,
   },
